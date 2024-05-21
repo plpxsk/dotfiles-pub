@@ -1,0 +1,74 @@
+# -*- mode: shell-script -*-
+echo "Loading .profile_local"
+
+## ============================================================================
+## 1 of 2) SET PATHS
+## ============================================================================
+
+# brew installation recommends this
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+
+# see README ruby and https://mac.install.guide/ruby/13.html
+if [ -d "/opt/homebrew/opt/ruby/bin" ]; then
+  export PATH=/opt/homebrew/opt/ruby/bin:$PATH
+  export PATH=`gem environment gemdir`/bin:$PATH
+fi
+
+
+## ============================================================================
+## 2 of 2) USE PATHS
+## ============================================================================
+
+# This should follow ALL path updates
+export WORKON_HOME=$HOME/Envs
+export PROJECT_HOME=$HOME/Devel
+
+
+export VIRTUALENVWRAPPER_PYTHON=/opt/homebrew/bin/python3
+source /opt/homebrew/bin/virtualenvwrapper.sh
+
+
+## ============================================================================
+## OTHER LOCAL OPTIONS
+## ============================================================================
+alias f='open -a Finder ./'                 # macOS only
+
+e() {
+    realpath $1 | pbcopy
+}
+
+alias be='bundle exec'
+
+# tldr
+# Local database is older than two weeks, attempting to update it...
+# To prevent automatic updates, set the environment variable TLDR_AUTO_UPDATE_DISABLED.
+export TLDR_AUTO_UPDATE_DISABLED
+
+
+# rust
+. "$HOME/.cargo/env"
+
+
+
+# miniconda
+# see: https://docs.anaconda.com/free/miniconda/#quick-command-line-install
+# load ad-hoc:
+
+# UNCOMMENT and RECOMMENT:
+# miniconda put the following into my .zshrc:
+
+# # >>> conda initialize >>>
+# # !! Contents within this block are managed by 'conda init' !!
+# __conda_setup="$('/Users/paul/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+# if [ $? -eq 0 ]; then
+#     eval "$__conda_setup"
+# else
+#     if [ -f "/Users/paul/miniconda3/etc/profile.d/conda.sh" ]; then
+#         . "/Users/paul/miniconda3/etc/profile.d/conda.sh"
+#     else
+#         export PATH="/Users/paul/miniconda3/bin:$PATH"
+#     fi
+# fi
+# unset __conda_setup
+# # <<< conda initialize <<<
